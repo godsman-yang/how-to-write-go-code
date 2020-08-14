@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  golang-dev:
+    image: golang-dev:7.14.1
+    build:
+      context: .
+      dockerfile: ./Dockerfile.golang-dev
+    depends_on:
+      - centos-golang
+    container_name: golang-dev
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    # ports:
+    #  - 1323:1323
+    volumes:
+     - ../:/work/
+
+  centos-golang:
+    image: centos-golang:7.14
+    build:
+      context: .
+      dockerfile: ./Dockerfile.golang

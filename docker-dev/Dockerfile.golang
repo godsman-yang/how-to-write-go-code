@@ -1,0 +1,27 @@
+FROM centos:7
+
+USER root
+RUN yum -y install epel-release
+RUN yum update -y
+# RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN yum -y install python sudo net-tools which make gcc wget
+
+RUN wget https://dl.google.com/go/go1.14.6.linux-amd64.tar.gz
+RUN sudo tar -C /usr/local -xzf go1.14.6.linux-amd64.tar.gz
+RUN rm -rf go1.14.6.linux-amd64.tar.gz
+
+# install git
+RUN sudo yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
+RUN sudo yum install git -y
+
+ENV TZ=Asia/Seoul
+
+ENV PATH /usr/local/go/bin:$PATH
+ENV GOLANG_VERSION 1.14.6
+
+USER root
+
+ENV GOPATH /go/
+ENV PATH $GOPATH/bin:$PATH
+# RUN mkdir -p "/work"
+# WORKDIR $GOPATH
